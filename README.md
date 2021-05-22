@@ -5,7 +5,9 @@ _I followed https://github.com/programmingdimension/8086-Assembly-Pong and Progr
 
 _**run requirement**_
 DOSBOX
+
 8086 Assembler
+
 Notepad++ (or any other text editor)
 
 _**control**_
