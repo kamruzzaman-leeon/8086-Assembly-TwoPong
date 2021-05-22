@@ -719,25 +719,25 @@ move_ball1 proc near
 		lea dx,text_main_menu_title
 		int 21h
 		
-		mov ah,02h  ;cursor position
-		mov bh,00h	;page number
-		mov dh,06h  ;row
-		mov dl,04h  ;column
-		int 10h
+		; mov ah,02h  ;cursor position
+		; mov bh,00h	;page number
+		; mov dh,06h  ;row
+		; mov dl,04h  ;column
+		; int 10h
 		
-		mov ah,09h
-		lea dx,text_main_menu_singleplayer
-		int 21h
+		; mov ah,09h
+		; lea dx,text_main_menu_singleplayer
+		; int 21h
 		
-		mov ah,02h  ;cursor position
-		mov bh,00h	;page number
-		mov dh,08h  ;row
-		mov dl,04h  ;column
-		int 10h
+		; mov ah,02h  ;cursor position
+		; mov bh,00h	;page number
+		; mov dh,08h  ;row
+		; mov dl,04h  ;column
+		; int 10h
 		
-		mov ah,09h
-		lea dx,text_main_menu_multiplayer
-		int 21h
+		; mov ah,09h
+		; lea dx,text_main_menu_multiplayer
+		; int 21h
 		
 		mov ah,02h  ;cursor position
 		mov bh,00h	;page number
@@ -751,7 +751,15 @@ move_ball1 proc near
 		
 		mov ah,00h
 		int 16h
-		ret
+		cmp al ,'E'		;exit to main menu
+		je exit
+		cmp al, 'e'
+		je exit
+		
+		exit:
+			mov ah,4ch
+			int 21h
+			
 	draw_main_menu endp
 	
 	update_winner_text proc near
