@@ -20,4 +20,8 @@ Right paddle:
 'L' or 'l' move up
 'O' or 'o' move down
 
+Exit 'E'
+
+Replay 'R'
+
 To win, player have to earn 5 points.
