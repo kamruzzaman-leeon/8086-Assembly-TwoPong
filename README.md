@@ -1,7 +1,4 @@
 # pingpong
- pingpong a classical game that programmed in 8086 assembly language.
+** pingpong a classical game that programmed in 8086 assembly language.**
 
-I followed https://github.com/programmingdimension/8086-Assembly-Pong and
-Programming Dimension's pong video series for educational purpose.
-here I applied a major change using 2 color ball instead of single ball
-and some minor change in speed,dimension,manu and so on.
+_I followed https://github.com/programmingdimension/8086-Assembly-Pong and Programming Dimension's pong video series for educational purposes. Here, I apply a major change using two-color ball instead of a single ball. And some minor changes in speed, dimension, menu, and so on._
