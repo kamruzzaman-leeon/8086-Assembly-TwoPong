@@ -10,6 +10,16 @@ DOSBOX
 
 Notepad++ (or any other text editor)
 
+_**run procedure**_
+open dosbox
+-mount <disk> <disk>:/<folder>
+-<disk>:
+-masm /a pong.asm
+-link pong
+-pong
+ 
+ ** For better understant follow theis -> https://youtube.com/playlist?list=PLvpbDCl_H7mfgmEJPl1bTHlH5g-f0kWDM
+  **
 _**control**_
 
 left paddle:
@@ -25,3 +35,5 @@ Exit 'E'
 Replay 'R'
 
 To win, player have to earn 5 points.
+
+
