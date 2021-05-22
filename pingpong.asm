@@ -92,7 +92,7 @@ code segment para 'code'
 				
 				call move_ball2
 				
-				call draw_ball2
+				; call draw_ball2
 				
 				call move_paddles
 				
@@ -149,13 +149,13 @@ move_ball1 proc near
 		
 		game_overs:
 			cmp player_one_points,05h
-			jnl winner_is_player_1
-			jmp winner_is_player_2
+			jnl winner_is_player_11
+			jmp winner_is_player_21
 			
-			winner_is_player_1:
+			winner_is_player_11:
 				mov winner_index,01h
 				jmp continue_game_over
-			winner_is_player_2:
+			winner_is_player_21:
 				mov winner_index,02h
 				jmp continue_game_over
 			
@@ -259,93 +259,128 @@ move_ball1 proc near
 	
 	move_ball2 proc near
 	
-		; mov ax,ball_velocity_x2
-		; add ball_x2,ax
+		mov ax,ball_velocity_x2
+		add ball_x2,ax
 		
-		; mov ax,window_bounds
-		; cmp ball_x2,ax
-		; jl reset_position2
+		mov ax,window_bounds
+		cmp ball_x2,ax
+		jl give_point_to_player_two2
 		
-		; mov ax,window_width
-		; sub ax,ball_size
-		; sub ax,window_bounds
-		; cmp ball_x2,ax
-		; jg reset_position2
-		; jmp move_Ball_vertically2
+		mov ax,window_width
+		sub ax,ball_size
+		sub ax,window_bounds
+		cmp ball_x2,ax
+		jg give_point_to_player_one2
+		jmp move_Ball_vertically2
 		
-		; reset_position2:
-			; call reset_ball_position2
-			; ret
-		
-		; move_Ball_vertically2:
-			; mov ax,ball_velocity_y2
-			; add ball_y2,ax
+		give_point_to_player_one2:
+			inc player_one_points
+			call reset_ball_position2
 			
-		; mov ax,window_bounds
-		; cmp ball_y2,ax
-		; jl neg_velocity_y2
-		
-		; mov ax,window_height
-		; sub ax,ball_size
-		; sub ax,window_bounds
-		; cmp ball_y2,ax
-		; jg neg_velocity_y2
-		
-		; mov ax,ball_x2
-		; add ax,ball_size
-		; cmp ax, paddle_right_x
-		; jng check_collision_with_left_paddle2
-		
-		; mov ax,paddle_right_x
-		; add ax,paddle_width
-		; cmp ball_x2,ax
-		; jnl check_collision_with_left_paddle2
-		
-		; mov ax,ball_y2
-		; add ax,ball_size
-		; cmp ax,paddle_right_y
-		; jng check_collision_with_left_paddle2
-		
-		; mov ax,paddle_right_y
-		; add ax,paddle_height
-		; cmp ball_y2,ax
-		; jnl check_collision_with_left_paddle2
-		
-		; jmp neg_velocity_x2
-		
-		; check_collision_with_left_paddle2:
-		
-		; mov ax,ball_x2
-		; add ax,ball_size
-		; cmp ax, paddle_left_x
-		; jng exit_collision_check2
-		
-		; mov ax,paddle_left_x
-		; add ax,paddle_width
-		; cmp ball_x2,ax
-		; jnl exit_collision_check2
-		
-		; mov ax,ball_y2
-		; add ax,ball_size
-		; cmp ax,paddle_left_y
-		; jng exit_collision_check2
-		
-		; mov ax,paddle_right_y
-		; add ax,paddle_height
-		; cmp ball_y2,ax
-		; jnl exit_collision_check2
-		
-		; jmp neg_velocity_x2
-		
-		; neg_velocity_y2:
-			; neg ball_velocity_y2
-			; ret
-		; neg_velocity_x2:
-			; neg ball_velocity_x2  
-			; ret
+			call update_text_p1_points
 			
-		; exit_collision_check2:
-			; ret	
+			cmp player_one_points,05h
+			jge game_overs2
+			ret
+			
+		give_point_to_player_two2:
+			inc player_two_points
+			call reset_ball_position2
+			
+			call update_text_p2_points
+			cmp player_two_points,05h
+			jge game_overs2
+			ret
+		
+		game_overs2:
+			cmp player_one_points,05h
+			jnl winner_is_player_12
+			jmp winner_is_player_22
+			
+			winner_is_player_12:
+				mov winner_index,01h
+				jmp continue_game_over2
+			winner_is_player_22:
+				mov winner_index,02h
+				jmp continue_game_over2
+			
+			continue_game_over2:
+				mov player_one_points,00h
+				mov player_two_points,00h
+				call update_text_p1_points
+				call update_text_p2_points
+				mov game_active,00h
+				ret
+		
+		move_Ball_vertically2:
+			mov ax,ball_velocity_y2
+			add ball_y2,ax
+			
+		mov ax,window_bounds
+		cmp ball_y2,ax
+		jl neg_velocity_y2
+		
+		mov ax,window_height
+		sub ax,ball_size
+		sub ax,window_bounds
+		cmp ball_y2,ax
+		jg neg_velocity_y2
+		
+		mov ax,ball_x2
+		add ax,ball_size
+		cmp ax, paddle_right_x
+		jng check_collision_left_paddle2
+		
+		mov ax,paddle_right_x
+		add ax,paddle_width
+		cmp ball_x2,ax
+		jnl check_collision_left_paddle2
+		
+		mov ax,ball_y2
+		add ax,ball_size
+		cmp ax,paddle_right_y
+		jng check_collision_left_paddle2
+		
+		mov ax,paddle_right_y
+		add ax,paddle_height
+		cmp ball_y2,ax
+		jnl check_collision_left_paddle2
+		
+		jmp neg_velocity_x2
+		
+		check_collision_left_paddle2:
+		
+		mov ax,ball_x2
+		add ax,ball_size
+		cmp ax, paddle_left_x
+		jng exit_collision_check2
+		
+		mov ax,paddle_left_x
+		add ax,paddle_width
+		cmp ball_x2,ax
+		jnl exit_collision_check2
+		
+		mov ax,ball_y2
+		add ax,ball_size
+		cmp ax,paddle_left_y
+		jng exit_collision_check2
+		
+		mov ax,paddle_left_y
+		add ax,paddle_height
+		cmp ball_y2,ax
+		jnl exit_collision_check2
+		
+		jmp neg_velocity_x2
+		
+		neg_velocity_y2:
+			neg ball_velocity_y2
+			ret
+		neg_velocity_x2:
+			neg ball_velocity_x2 
+			ret
+			
+		exit_collision_check2:
+			ret
 	move_ball2 endp
 	
 	
