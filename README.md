@@ -18,8 +18,8 @@ open dosbox
 -link pong
 -pong
  
- ** For better understant follow theis -> https://youtube.com/playlist?list=PLvpbDCl_H7mfgmEJPl1bTHlH5g-f0kWDM
-  **
+ ** For better understant follow theis -> https://youtube.com/playlist?list=PLvpbDCl_H7mfgmEJPl1bTHlH5g-f0kWDM**
+ 
 _**control**_
 
 left paddle:
