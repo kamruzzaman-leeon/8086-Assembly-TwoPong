@@ -18,4 +18,4 @@ Right paddle:
 'L' or 'l' move up
 'O' or 'o' move down
 
-To win, player have to achived 5 points.
+To win, player have to earn 5 points.
